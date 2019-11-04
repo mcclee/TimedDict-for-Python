@@ -38,13 +38,15 @@ class TimedDict:
         return len(self.dic)
 
     def __repr__(self):
-        s = ['{']
+        output = ['{']
         beg = self.start.next
         while beg != self.end:
-            s.append(str(f'{beg.key.__repr__()}: {self.dic[beg.key][0].__repr__()}, '))
+            output.append(str(f'{beg.key.__repr__()}: {self.dic[beg.key][0].__repr__()}, '))
             beg = beg.next
-        s.append('}')
-        return ''.join(s)
+        if len(output) > 1:
+            output[-1] = output[-1][:-2]
+        output.append('}')
+        return ''.join(output)
 
     def __contains__(self, item):
         return item in self.dic
@@ -105,10 +107,10 @@ class TimedDict:
 
 if __name__ == '__main__':
     d = TimedDict(5)
-    for i in range(1000):
+    for i in range(3):
         d[i] = i ** 2
     print(d)
-    #d.clear()
+    d.clear()
 
 
 
