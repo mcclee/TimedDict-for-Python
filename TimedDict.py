@@ -21,6 +21,8 @@ class HandleQueue(threading.Thread):
                 self.TimedDict.delete(self.TimedDict.start.next.key)
             if self.TimedDict.start.next != self.TimedDict.end:
                 time.sleep(min(0.25, max(0, self.TimedDict.time - (cur - self.TimedDict.start.next.time))))
+            if not threading.main_thread().is_alive():
+                break
 
 
 class TimedDict:
@@ -109,8 +111,8 @@ if __name__ == '__main__':
     d = TimedDict(5)
     for i in range(3):
         d[i] = i ** 2
-    print(d)
-    d.clear()
+    ls = [0]
+
 
 
 
